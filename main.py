@@ -3,12 +3,13 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtGui import QPainter, QColor
 from random import randint
+from UI import Ui_MainWindow
 
 
-class Yellow(QMainWindow):
+class Yellow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.button.clicked.connect(self.add_circle)
         self.circles = []
         self.do_paint = False
@@ -21,7 +22,8 @@ class Yellow(QMainWindow):
             qp.end()
 
     def draw_circles(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
+        r, g, b = randint(0, 255), randint(0, 255), randint(0, 255)
+        qp.setBrush(QColor(r, g, b))
         for x, y, r in self.circles:
             qp.drawEllipse(x, y, r, r)
 
